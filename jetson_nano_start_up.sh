@@ -2,13 +2,7 @@
 echo "Starting initial setup for Jetson Nano"
 
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
-sudo apt-get update && sudo apt-get upgrade
-
-echo "------------------- [ INSTALLING TP-LINK T3U ADAPTER ] -------------------"
-# Install tp-link wifi T3U adapter
-lsusbsudo apt install git dkms
-git clone -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git && cd rtl8812au
-sudo make dkms_install
+sudo apt update -y && sudo apt upgrade -y
 
 echo "------------------- [ BUILDING VIM FROM SOURCE ] -------------------"
 
@@ -22,13 +16,6 @@ cd src
 ./configure
 make -j 4
 sudo make install
-
-# E: Could not get lock /var/lib/dpkg/lock-frontend - open (11: Resource temporarily unavailable)
-sudo killall apt apt-get
-sudo rm /var/lib/apt/lists/lock
-sudo rm /var/cache/apt/archives/lock
-sudo rm /var/lib/dpkg/lock*
-sudo dpkg --configure -a
 
 echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
 #!/bin/bash
@@ -137,7 +124,6 @@ make clean
 echo "Congratulations!"
 echo "You've successfully installed OpenCV 4.7.0 on your Jetson Nano"
 
-
 echo "------------------- [ INSTALLING XRDP / XFCE4 ] -------------------"
 
 # XRDP / XFCE4
@@ -151,9 +137,6 @@ sudo apt install -y xfce4
 sudo chmod 777 /etc/xrdp/startwm.sh
 sudo apt-get install -y xfce4-terminal
 sudo update-alternatives --config x-terminal-emulator
-
-sudo apt update -y && sudo apt upgrade -y
-
 echo "Use the following commadn : sudo nano /etc/xrdp/startwm.sh"
 echo "Comment out the last two lines"
 echo "Add 'startxfce4 at the bottom of the file"
