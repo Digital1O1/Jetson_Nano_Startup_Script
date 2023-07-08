@@ -7,7 +7,10 @@ sudo apt update -y && sudo apt upgrade -y
 echo "------------------- [ INSTALLING NANO ] -------------------"
 sudo apt install -y nano
 
+echo "------------------- [ INSTALLING JETSON STATS ] -------------------"
 
+sudo apt install -y python3-pip
+sudo pip3 install -U jetson-stats
 
 echo "------------------- [ BUILDING VIM FROM SOURCE ] -------------------"
 
