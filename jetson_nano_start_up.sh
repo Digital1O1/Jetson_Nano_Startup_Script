@@ -4,6 +4,11 @@ echo "Starting initial setup for Jetson Nano"
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
 sudo apt update -y && sudo apt upgrade -y
 
+echo "------------------- [ INSTALLING NANO ] -------------------"
+sudo apt install -y nano
+
+
+
 echo "------------------- [ BUILDING VIM FROM SOURCE ] -------------------"
 
 # Building VIM from source
@@ -125,11 +130,13 @@ echo "Congratulations!"
 echo "You've successfully installed OpenCV 4.7.0 on your Jetson Nano"
 
 echo "------------------- [ INSTALLING XRDP / XFCE4 ] -------------------"
+# Reference link : https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/
 
 # XRDP / XFCE4
 sudo apt install -y xrdp
 sudo apt install -y python3-pip
 sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
+sudo apt install -y curl
 
 # Change myUserName to whatever username you're using
 sudo adduser ctnano ssl-cert
@@ -137,7 +144,7 @@ sudo apt install -y xfce4
 sudo chmod 777 /etc/xrdp/startwm.sh
 sudo apt-get install -y xfce4-terminal
 sudo update-alternatives --config x-terminal-emulator
-echo "Use the following commadn : sudo nano /etc/xrdp/startwm.sh"
+echo "Use the following commadnd : sudo nano /etc/xrdp/startwm.sh"
 echo "Comment out the last two lines"
-echo "Add 'startxfce4 at the bottom of the file"
+echo "Add 'startxfce4' at the bottom of the file"
 echo "Then copy/paste in the terminal :  sudo service xrdp restart"
