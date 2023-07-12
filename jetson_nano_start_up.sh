@@ -4,7 +4,15 @@ echo "Starting initial setup for Jetson Nano"
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
 sudo apt update -y && sudo apt upgrade -y
 
-echo "------------------- [ INSTALLING CUDA 11.2 ] -------------------"
+echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
+sudo apt install gcc-8 g++-8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+sudo update-alternatives --config gcc
+gcc --version
+
+
+
+#echo "------------------- [ INSTALLING CUDA 11.2 ] -------------------"
 #wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/arm64/cuda-ubuntu2004.pin
 #sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
 #wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda-tegra-repo-ubuntu2004-12-2-local_12.2.0-1_arm64.deb
