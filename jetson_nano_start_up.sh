@@ -165,7 +165,28 @@ sudo apt install -y xfce4
 sudo chmod 777 /etc/xrdp/startwm.sh
 sudo apt-get install -y xfce4-terminal
 sudo update-alternatives --config x-terminal-emulator
-echo "Use the following commadnd : sudo nano /etc/xrdp/startwm.sh"
+echo "Use the following command: sudo nano /etc/xrdp/startwm.sh"
 echo "Comment out the last two lines"
 echo "Add 'startxfce4' at the bottom of the file"
 echo "Then copy/paste in the terminal :  sudo service xrdp restart"
+
+echo "------------------- [ ENABLE VNC/REMOTE DESKTOP ] -------------------"
+echo "Reference link : https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/"
+echo "Use the following command: sudo nano /etc/xrdp/startwm.sh"
+echo "Add this after the first 'entry'"
+echo "<key name='enabled' type='b'>
+   <summary>Enable remote access to the desktop</summary>
+   <description>
+   If true, allows remote access to the desktop via the RFB
+   protocol. Users on remote machines may then connect to the
+   desktop using a VNC viewer.
+   </description>
+   <default>false</default>
+</key>"
+echo "Then : sudo glib-compile-schemas /usr/share/glib-2.0/schemas"
+echo "gsettings set org.gnome.Vino require-encryption false"
+echo "gsettings set org.gnome.Vino prompt-enabled false"
+sudo reboot now
+
+
+
