@@ -172,7 +172,7 @@ echo "Then copy/paste in the terminal :  sudo service xrdp restart"
 
 echo "------------------- [ ENABLE VNC/REMOTE DESKTOP ] -------------------"
 echo "Reference link : https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/"
-echo "Use the following command: sudo nano /etc/xrdp/startwm.sh"
+echo "Use the following command: sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml"
 echo "Add this after the first 'entry'"
 echo "<key name='enabled' type='b'>
    <summary>Enable remote access to the desktop</summary>
