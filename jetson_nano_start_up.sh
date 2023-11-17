@@ -68,7 +68,9 @@ sudo apt-get install -y python-dev python-numpy python-pip
 sudo apt-get install -y gstreamer1.0-tools libgstreamer-plugins-base1.0-dev
 sudo apt-get install -y libgstreamer-plugins-good1.0-dev
 sudo apt-get install -y libtbb2 libgtk-3-dev v4l2ucp libxine2-dev
-sudo apt-get install -y cmake
+sudo apt-get install -y build-essential cmake git unzip pkg-config
+
+#sudo apt-get install -y cmake
 sudo apt-get install -y libjpeg-dev libjpeg8-dev libjpeg-turbo8-dev
 sudo apt-get install -y libpng-dev libtiff-dev libglew-dev
 sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
