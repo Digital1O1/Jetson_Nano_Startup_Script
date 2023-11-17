@@ -42,41 +42,69 @@ cd ~
 sudo sh -c "echo '/usr/local/cuda/lib64' >> /etc/ld.so.conf.d/nvidia-tegra.conf"
 sudo ldconfig
 
-# install the dependencies
-sudo apt-get install -y build-essential cmake git unzip pkg-config zlib1g-dev
-sudo apt-get install -y libjpeg-dev libjpeg8-dev libjpeg-turbo8-dev libpng-dev libtiff-dev
-sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libglew-dev
+# install the dependencies ORIGINAL 
+# sudo apt-get install -y build-essential cmake git unzip pkg-config zlib1g-dev
+# sudo apt-get install -y libjpeg-dev libjpeg8-dev libjpeg-turbo8-dev libpng-dev libtiff-dev
+# sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libglew-dev
+# sudo apt-get install -y libgtk2.0-dev libgtk-3-dev libcanberra-gtk*
+# # No longer available with Ubuntu 20.04
+# #sudo apt-get install -y python-dev python-numpy python-pip
+# sudo apt-get install -y python3-dev python3-numpy python3-pip
+# sudo apt-get install -y libxvidcore-dev libx264-dev libgtk-3-dev
+# sudo apt-get install -y libtbb2 libtbb-dev libdc1394-22-dev libxine2-dev
+# sudo apt-get install -y gstreamer1.0-tools libv4l-dev v4l-utils qv4l2 
+# sudo apt-get install -y libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev
+# sudo apt-get install -y libavresample-dev libvorbis-dev libxine2-dev libtesseract-dev
+# sudo apt-get install -y libfaac-dev libmp3lame-dev libtheora-dev libpostproc-dev
+# sudo apt-get install -y libopencore-amrnb-dev libopencore-amrwb-dev
+# sudo apt-get install -y libopenblas-dev libatlas-base-dev libblas-dev
+# sudo apt-get install -y liblapack-dev liblapacke-dev libeigen3-dev gfortran
+# sudo apt-get install -y libhdf5-dev protobuf-compiler
+# sudo apt-get install -y libprotobuf-dev libgoogle-glog-dev libgflags-dev
+
+sudo apt-get install -y build-essential git unzip pkg-config zlib1g-dev
+sudo apt-get install -y python3-dev python3-numpy
+sudo apt-get install -y python-dev python-numpy python-pip
+sudo apt-get install -y gstreamer1.0-tools libgstreamer-plugins-base1.0-dev
+sudo apt-get install -y libgstreamer-plugins-good1.0-dev
+sudo apt-get install -y libtbb2 libgtk-3-dev v4l2ucp libxine2-dev
+sudo apt-get install -y cmake
+sudo apt-get install -y libjpeg-dev libjpeg8-dev libjpeg-turbo8-dev
+sudo apt-get install -y libpng-dev libtiff-dev libglew-dev
+sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
 sudo apt-get install -y libgtk2.0-dev libgtk-3-dev libcanberra-gtk*
-# No longer available with Ubuntu 20.04
-#sudo apt-get install -y python-dev python-numpy python-pip
-sudo apt-get install -y python3-dev python3-numpy python3-pip
-sudo apt-get install -y libxvidcore-dev libx264-dev libgtk-3-dev
-sudo apt-get install -y libtbb2 libtbb-dev libdc1394-22-dev libxine2-dev
-sudo apt-get install -y gstreamer1.0-tools libv4l-dev v4l-utils qv4l2 
-sudo apt-get install -y libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev
-sudo apt-get install -y libavresample-dev libvorbis-dev libxine2-dev libtesseract-dev
-sudo apt-get install -y libfaac-dev libmp3lame-dev libtheora-dev libpostproc-dev
+sudo apt-get install -y python3-pip
+sudo apt-get install -y libxvidcore-dev libx264-dev
+sudo apt-get install -y libtbb-dev libdc1394-22-dev libxine2-dev
+sudo apt-get install -y libv4l-dev v4l-utils qv4l2
+sudo apt-get install -y libtesseract-dev libpostproc-dev
+sudo apt-get install -y libavresample-dev libvorbis-dev
+sudo apt-get install -y libfaac-dev libmp3lame-dev libtheora-dev
 sudo apt-get install -y libopencore-amrnb-dev libopencore-amrwb-dev
 sudo apt-get install -y libopenblas-dev libatlas-base-dev libblas-dev
 sudo apt-get install -y liblapack-dev liblapacke-dev libeigen3-dev gfortran
-sudo apt-get install -y libhdf5-dev protobuf-compiler
-sudo apt-get install -y libprotobuf-dev libgoogle-glog-dev libgflags-dev
+sudo apt-get install -y libhdf5-dev libprotobuf-dev protobuf-compiler
+sudo apt-get install -y libgoogle-glog-dev libgflags-dev
 
 # remove old versions or previous builds
 cd ~ 
 sudo rm -rf opencv*
 # download the latest version
-wget -O opencv.zip https://github.com/opencv/opencv/archive/4.8.0.zip 
-wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.8.0.zip 
-# unpack
-unzip opencv.zip 
-unzip opencv_contrib.zip 
-# some administration to make live easier later on
-mv opencv-4.8 opencv
-mv opencv_contrib-4.8 opencv_contrib
-# clean up the zip files
-rm opencv.zip
-rm opencv_contrib.zip
+git clone --depth=1 https://github.com/opencv/opencv.git
+git clone --depth=1 https://github.com/opencv/opencv_contrib.git
+
+# ORIGINAL
+# wget -O opencv.zip https://github.com/opencv/opencv/archive/4.8.0.zip 
+# wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.8.0.zip 
+# # unpack
+# unzip opencv.zip 
+# unzip opencv_contrib.zip 
+# # some administration to make live easier later on
+# mv opencv-4.8 opencv
+# mv opencv_contrib-4.8 opencv_contrib
+# # clean up the zip files
+# rm opencv.zip
+# rm opencv_contrib.zip
 
 # set install dir
 cd ~/opencv
