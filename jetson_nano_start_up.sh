@@ -5,6 +5,7 @@ echo "------------------- [ UPDATING JETSON NANO ] -------------------"
 sudo apt update -y && sudo apt upgrade -y
 
 echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
+
 sudo apt install -y gcc-8 g++-8
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 sudo update-alternatives --config gcc
@@ -34,7 +35,7 @@ echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
 #!/bin/bash
 set -e
 
-echo "Installing OpenCV 4.7.0 on your Jetson Nano"
+echo "Installing OpenCV 4.8.0 on your Jetson Nano"
 echo "It will take 3.5 hours !"
 
 # reveal the CUDA location
@@ -137,7 +138,7 @@ make clean
 #sudo apt-get update
 
 echo "Congratulations!"
-echo "You've successfully installed OpenCV 4.7.0 on your Jetson Nano"
+echo "You've successfully installed OpenCV 4.8.0 on your Jetson Nano"
 
 echo "------------------- [ INSTALLING XRDP / XFCE4 ] -------------------"
 # Reference link : https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/
