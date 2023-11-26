@@ -114,7 +114,8 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D OPENCV_ENABLE_NONFREE=ON \
 -D INSTALL_C_EXAMPLES=ON \
 -D INSTALL_PYTHON_EXAMPLES=ON \
--D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages \
+-D PYTHON3_PACKAGES_PATH=/usr/local/lib/python3.11/site-packages \
+#-D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages \
 -D OPENCV_GENERATE_PKGCONFIG=ON \
 -D WITH_ONNX=ON \
 -D BUILD_EXAMPLES=ON ..
@@ -127,7 +128,7 @@ else
   echo "Due to limited swap, make only uses 1 core"
   NO_JOB=1
 fi
-make -j ${NO_JOB} 
+make -j 4
 
 sudo rm -r /usr/include/opencv4/opencv2
 sudo make install
