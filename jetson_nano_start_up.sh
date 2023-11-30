@@ -44,6 +44,8 @@ sudo sh -c "echo '/usr/local/cuda/lib64' >> /etc/ld.so.conf.d/nvidia-tegra.conf"
 sudo ldconfig
 
 # install the dependencies
+sudo apt-get install -y libeigen3-dev
+sudo apt-get install -y libgstreamer-plugins-base1.0-dev
 sudo apt-get install -y build-essential cmake git unzip pkg-config zlib1g-dev
 sudo apt-get install -y libjpeg-dev libjpeg8-dev libjpeg-turbo8-dev libpng-dev libtiff-dev
 sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libglew-dev
@@ -136,7 +138,7 @@ sudo ldconfig
 
 # cleaning (frees 320 MB)
 make clean
-#sudo apt-get update
+sudo apt-get update
 
 echo "Congratulations!"
 echo "You've successfully installed OpenCV 4.8.0 on your Jetson Nano"
