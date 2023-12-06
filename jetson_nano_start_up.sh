@@ -116,7 +116,8 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D OPENCV_ENABLE_NONFREE=ON \
 -D INSTALL_C_EXAMPLES=OFF \
 -D INSTALL_PYTHON_EXAMPLES=OFF \
--D PYTHON3_PACKAGES_PATH=/usr/local/lib/python3.11/site-packages \
+# Use 'which python' to determine python packing path
+-D PYTHON3_PACKAGES_PATH=/home/ctnano/python_venv_3.11/lib/python3.11/site-packages \
 #-D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages \
 -D OPENCV_GENERATE_PKGCONFIG=ON \
 -D WITH_ONNX=ON \
