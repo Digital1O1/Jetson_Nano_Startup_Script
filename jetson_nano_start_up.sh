@@ -2,11 +2,11 @@
 echo "Starting initial setup for Jetson Nano"
 
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
-sudo apt update -y && sudo apt upgrade -y
+sudo apt update -y && sudo apt upgrade -y && sudo apt-get install build-essential
 
 echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
-# sudo apt install -y gcc-8 g++-8
+sudo apt install -y gcc-8 g++-8
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 sudo update-alternatives --config gcc
 gcc --version
@@ -43,6 +43,12 @@ sudo sh -c "echo '/usr/local/cuda/lib64' >> /etc/ld.so.conf.d/nvidia-tegra.conf"
 sudo ldconfig
 
 # install the dependencies
+sudo apt-get install -y build-essential git unzip pkg-config zlib1g-dev
+sudo apt-get install -y python3-dev python3-numpy
+sudo apt-get install -y python-dev python-numpy python-pip
+sudo apt-get install -y gstreamer1.0-tools libgstreamer-plugins-base1.0-dev
+sudo apt-get install -y libgstreamer-plugins-good1.0-dev
+sudo apt-get install -y libtbb2 libgtk-3-dev v4l2ucp libxine2-dev
 sudo apt-get install -y libeigen3-dev
 sudo apt-get install -y libgstreamer-plugins-base1.0-dev
 sudo apt-get install -y build-essential cmake git unzip pkg-config zlib1g-dev
@@ -93,7 +99,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D WITH_OPENCL=OFF \
 -D WITH_CUDA=ON \
 -D CUDA_ARCH_BIN=5.3 \
--D CUDA_ARCH_PTX="" \
+-D CUDA_ARCH_PTX="sm_53" \
 -D WITH_CUDNN=ON \
 -D WITH_CUBLAS=ON \
 -D ENABLE_FAST_MATH=ON \
@@ -115,7 +121,6 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D OPENCV_ENABLE_NONFREE=ON \
 -D INSTALL_C_EXAMPLES=OFF \
 -D INSTALL_PYTHON_EXAMPLES=ON \
-# Use 'which python' to determine python packing path
 -D PYTHON3_PACKAGES_PATH=/usr/lib/python3.8/site-packages \
 -D OPENCV_GENERATE_PKGCONFIG=ON \
 -D WITH_ONNX=ON \
