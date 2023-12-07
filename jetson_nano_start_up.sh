@@ -45,7 +45,7 @@ sudo ldconfig
 # install the dependencies
 sudo apt-get install -y build-essential git unzip pkg-config zlib1g-dev
 sudo apt-get install -y python3-dev python3-numpy
-sudo apt-get install -y python-dev python-numpy python-pip
+sudo apt-get install -y python-dev python-numpy python3-pip  # Modified this line
 sudo apt-get install -y gstreamer1.0-tools libgstreamer-plugins-base1.0-dev
 sudo apt-get install -y libgstreamer-plugins-good1.0-dev
 sudo apt-get install -y libtbb2 libgtk-3-dev v4l2ucp libxine2-dev
@@ -55,8 +55,6 @@ sudo apt-get install -y build-essential cmake git unzip pkg-config zlib1g-dev
 sudo apt-get install -y libjpeg-dev libjpeg8-dev libjpeg-turbo8-dev libpng-dev libtiff-dev
 sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libglew-dev
 sudo apt-get install -y libgtk2.0-dev libgtk-3-dev libcanberra-gtk*
-# No longer available with Ubuntu 20.04
-#sudo apt-get install -y python-dev python-numpy python-pip
 sudo apt-get install -y python3-dev python3-numpy python3-pip
 sudo apt-get install -y libxvidcore-dev libx264-dev libgtk-3-dev
 sudo apt-get install -y libtbb2 libtbb-dev libdc1394-22-dev libxine2-dev
