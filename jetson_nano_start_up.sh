@@ -6,7 +6,7 @@ sudo apt update -y && sudo apt upgrade -y
 
 echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
-sudo apt install -y gcc-8 g++-8
+# sudo apt install -y gcc-8 g++-8
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 sudo update-alternatives --config gcc
 gcc --version
@@ -36,7 +36,6 @@ echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
 set -e
 
 echo "Installing OpenCV 4.8.0 on your Jetson Nano"
-echo "It will take 3.5 hours !"
 
 # reveal the CUDA location
 cd ~
@@ -115,22 +114,21 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D WITH_LIBV4L=ON \
 -D OPENCV_ENABLE_NONFREE=ON \
 -D INSTALL_C_EXAMPLES=OFF \
--D INSTALL_PYTHON_EXAMPLES=OFF \
+-D INSTALL_PYTHON_EXAMPLES=ON \
 # Use 'which python' to determine python packing path
--D PYTHON3_PACKAGES_PATH=/home/ctnano/python_venv_3.11/lib/python3.11/site-packages \
-#-D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages \
+-D PYTHON3_PACKAGES_PATH=/usr/lib/python3.8/site-packages \
 -D OPENCV_GENERATE_PKGCONFIG=ON \
 -D WITH_ONNX=ON \
--D BUILD_EXAMPLES=OFF ..
+-D BUILD_EXAMPLES=ON ..
 # run make
-FREE_MEM="$(free -m | awk '/^Swap/ {print $2}')"
-# Use "-j 4" only swap space is larger than 5.5GB
-if [[ "FREE_MEM" -gt "5500" ]]; then
-  NO_JOB=4
-else
-  echo "Due to limited swap, make only uses 1 core"
-  NO_JOB=1
-fi
+# FREE_MEM="$(free -m | awk '/^Swap/ {print $2}')"
+# # Use "-j 4" only swap space is larger than 5.5GB
+# if [[ "FREE_MEM" -gt "5500" ]]; then
+#   NO_JOB=4
+# else
+#   echo "Due to limited swap, make only uses 1 core"
+#   NO_JOB=1
+# fi
 make -j 4
 
 sudo rm -r /usr/include/opencv4/opencv2
