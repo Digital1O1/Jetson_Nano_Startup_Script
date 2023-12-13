@@ -5,13 +5,13 @@ echo "------------------- [ UPDATING JETSON NANO ] -------------------"
 sudo apt-get -y update  && sudo apt-get -y upgrade 
 # echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
-# sudo apt install -y gcc-8 g++-8
-# sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-# sudo update-alternatives --config gcc
-# gcc --version
-# git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-# cd ~/.vim/bundle/YouCompleteMe
-# python3 install.py --all
+sudo apt install -y gcc-8 g++-8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+sudo update-alternatives --config gcc
+gcc --version
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+cd ~/.vim/bundle/YouCompleteMe
+python3 install.py --all
 
 echo "------------------- [ INSTALLING NANO ] -------------------"
 sudo apt install -y nano
