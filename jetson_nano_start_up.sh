@@ -4,15 +4,15 @@ echo "Starting initial setup for Jetson Nano"
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
 sudo apt update -y && sudo apt upgrade -y && sudo apt-get install build-essential
 
-echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
+# echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
-sudo apt install -y gcc-8 g++-8
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-sudo update-alternatives --config gcc
-gcc --version
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-cd ~/.vim/bundle/YouCompleteMe
-python3 install.py --all
+# sudo apt install -y gcc-8 g++-8
+# sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+# sudo update-alternatives --config gcc
+# gcc --version
+# git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# cd ~/.vim/bundle/YouCompleteMe
+# python3 install.py --all
 
 echo "------------------- [ INSTALLING NANO ] -------------------"
 sudo apt install -y nano
@@ -153,35 +153,59 @@ sudo apt install -y xrdp
 sudo apt install -y python3-pip
 sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
 sudo apt install -y curl
+echo "------------------- [ INSTALLING TIGHTVNC ] -------------------"
+sudo apt-get install -y xfce4 xfce4-goodies
+sudo apt-get install -y tightvncserver
 
-# # Change myUserName to whatever username you're using
-# sudo adduser ctnano ssl-cert
-# sudo apt install -y xfce4
-# sudo chmod 777 /etc/xrdp/startwm.sh
-# sudo apt-get install -y xfce4-terminal
-# sudo update-alternatives --config x-terminal-emulator
-# echo "Use the following command: sudo nano /etc/xrdp/startwm.sh"
-# echo "Comment out the last two lines"
-# echo "Add 'startxfce4' at the bottom of the file"
-# echo "Then copy/paste in the terminal :  sudo service xrdp restart"
+# Start TightVNC server to set up initial configuration
+tightvncserver
 
-# echo "------------------- [ ENABLE VNC/REMOTE DESKTOP ] -------------------"
-# echo "Reference link : https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/"
-# echo "Use the following command: sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml"
-# echo "Add this after the first 'entry'"
-# echo "<key name='enabled' type='b'>
-#    <summary>Enable remote access to the desktop</summary>
-#    <description>
-#    If true, allows remote access to the desktop via the RFB
-#    protocol. Users on remote machines may then connect to the
-#    desktop using a VNC viewer.
-#    </description>
-#    <default>false</default>
-# </key>"
-# echo "Then : sudo glib-compile-schemas /usr/share/glib-2.0/schemas"
-# echo "gsettings set org.gnome.Vino require-encryption false"
-# echo "gsettings set org.gnome.Vino prompt-enabled false"
+# Stop TightVNC server
+tightvncserver -kill :1
+
+# Configure TightVNC server to start on boot
+echo "#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          tightvncserver
+# Required-Start:    $local_fs $remote_fs $network
+# Required-Stop:     $local_fs $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start TightVNC server at boot time
+# Description:       Start TightVNC server at boot time.
+### END INIT INFO
+
+# /etc/init.d/tightvncserver
+tightvncserver -geometry 1920x1080 -depth 24 :1
+" | sudo tee -a /etc/init.d/tightvncserver
+
+# Set executable permissions for the init script
+sudo chmod +x /etc/init.d/tightvncserver
+
+# Register the init script to run on boot
+sudo update-rc.d tightvncserver defaults
+
+# Start TightVNC server
+sudo /etc/init.d/tightvncserver start
+
+echo "TightVNC server installed and configured. You can now connect to your Jetson Nano using a VNC viewer on the IP address followed by :1 (e.g., 192.168.1.100:1)"
+
+echo "------------------- [ ENABLE VNC/REMOTE DESKTOP ] -------------------"
+echo "Reference link: https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/"
+echo "Use the following command: sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml"
+echo "Add this after the first 'entry'"
+echo "<key name='enabled' type='b'>
+   <summary>Enable remote access to the desktop</summary>
+   <description>
+   If true, allows remote access to the desktop via the RFB
+   protocol. Users on remote machines may then connect to the
+   desktop using a VNC viewer.
+   </description>
+   <default>false</default>
+</key>"
+echo "Then: sudo glib-compile-schemas /usr/share/glib-2.0/schemas"
+echo "gsettings set org.gnome.Vino require-encryption false"
+echo "gsettings set org.gnome.Vino prompt-enabled false"
 sudo reboot now
-
 
 
