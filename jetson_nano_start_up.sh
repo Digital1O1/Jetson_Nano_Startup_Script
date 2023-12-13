@@ -48,7 +48,7 @@ sudo apt-get install -y python3-dev python3-numpy
 sudo apt-get install -y python-dev python-numpy python3-pip  # Modified this line
 sudo apt-get install -y gstreamer1.0-tools libgstreamer-plugins-base1.0-dev
 sudo apt-get install -y libgstreamer-plugins-good1.0-dev
-sudo apt-get install -y libtbb2 libgtk-3-dev v4l2ucp libxine2-dev
+sudo apt-get install -y libtbb2 libgtk-3-dev libxine2-dev
 sudo apt-get install -y libeigen3-dev
 sudo apt-get install -y libgstreamer-plugins-base1.0-dev
 sudo apt-get install -y build-essential cmake git unzip pkg-config zlib1g-dev
