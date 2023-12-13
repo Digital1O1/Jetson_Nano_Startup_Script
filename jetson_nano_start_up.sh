@@ -2,8 +2,7 @@
 echo "Starting initial setup for Jetson Nano"
 
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
-sudo apt update -y && sudo apt upgrade -y && sudo apt-get install build-essential
-
+sudo apt-get -y update  && sudo apt-get -y upgrade 
 # echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
 # sudo apt install -y gcc-8 g++-8
