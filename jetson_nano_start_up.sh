@@ -90,6 +90,8 @@ cd build
 
 # run cmake
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
+-D MAKE_C_COMPILER=/usr/bin/gcc-8 \
+-D MAKE_CXX_COMPILER=/usr/bin/g++-8 \
 -D CMAKE_INSTALL_PREFIX=/usr \
 -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
 -D EIGEN_INCLUDE_PATH=/usr/include/eigen3 \
