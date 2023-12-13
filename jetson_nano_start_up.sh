@@ -1,24 +1,30 @@
-#! /bin/bash
+#!/bin/bash
 echo "Starting initial setup for Jetson Nano"
 
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
-sudo apt-get -y update  && sudo apt-get -y upgrade 
-# echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
+sudo apt-get -y update && sudo apt-get -y upgrade
 
-sudo apt install -y gcc-8 g++-8
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 80 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+echo "------------------- [ INSTALLING LATEST GCC AND G++ ] -------------------"
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+sudo apt-get update
+sudo apt-get install -y gcc-11 g++-11
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110 --slave /usr/bin/g++ g++ /usr/bin/g++-11
 sudo update-alternatives --config gcc
 gcc --version
+
+echo "------------------- [ INSTALLING VIM AND YOUCOMPLETEME ] -------------------"
+sudo apt-get install -y vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 cd ~/.vim/bundle/YouCompleteMe
 python3 install.py --all
 
 echo "------------------- [ INSTALLING NANO ] -------------------"
-sudo apt install -y nano
+sudo apt-get install -y nano
 
 echo "------------------- [ INSTALLING JETSON STATS ] -------------------"
-
-sudo apt install -y python3-pip
+sudo apt-get install -y python3-pip
 sudo pip3 install -U jetson-stats
 
 echo "------------------- [ BUILDING VIM FROM SOURCE ] -------------------"
@@ -44,7 +50,7 @@ sudo ldconfig
 # install the dependencies
 sudo apt-get install -y build-essential git unzip pkg-config zlib1g-dev
 sudo apt-get install -y python3-dev python3-numpy
-sudo apt-get install -y python-dev python-numpy python3-pip  # Modified this line
+sudo apt-get install -y python-dev python-numpy python3-pip
 sudo apt-get install -y gstreamer1.0-tools libgstreamer-plugins-base1.0-dev
 sudo apt-get install -y libgstreamer-plugins-good1.0-dev
 sudo apt-get install -y libtbb2 libgtk-3-dev libxine2-dev
@@ -90,8 +96,8 @@ cd build
 
 # run cmake
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
--D MAKE_C_COMPILER=/usr/bin/gcc-8 \
--D MAKE_CXX_COMPILER=/usr/bin/g++-8 \
+-D MAKE_C_COMPILER=/usr/bin/gcc-11 \
+-D MAKE_CXX_COMPILER=/usr/bin/g++-11 \
 -D CMAKE_INSTALL_PREFIX=/usr \
 -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
 -D EIGEN_INCLUDE_PATH=/usr/include/eigen3 \
@@ -125,14 +131,6 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 -D WITH_ONNX=ON \
 -D BUILD_EXAMPLES=ON ..
 # run make
-# FREE_MEM="$(free -m | awk '/^Swap/ {print $2}')"
-# # Use "-j 4" only swap space is larger than 5.5GB
-# if [[ "FREE_MEM" -gt "5500" ]]; then
-#   NO_JOB=4
-# else
-#   echo "Due to limited swap, make only uses 1 core"
-#   NO_JOB=1
-# fi
 make -j 4
 
 sudo rm -r /usr/include/opencv4/opencv2
@@ -146,8 +144,10 @@ sudo apt-get update
 echo "Congratulations!"
 echo "You've successfully installed OpenCV 4.8.0 on your Jetson Nano"
 
+# Rest of the script remains unchanged
+
 echo "------------------- [ INSTALLING XRDP / XFCE4 ] -------------------"
-# Reference link : https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/
+# Reference link: https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/
 
 # XRDP / XFCE4
 sudo apt install -y xrdp
@@ -208,5 +208,3 @@ echo "Then: sudo glib-compile-schemas /usr/share/glib-2.0/schemas"
 echo "gsettings set org.gnome.Vino require-encryption false"
 echo "gsettings set org.gnome.Vino prompt-enabled false"
 sudo reboot now
-
-
