@@ -97,40 +97,40 @@ echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
 
 #!/bin/bash
 set -e
-install_opencv () {
-  # Check if the file /proc/device-tree/model exists
-  if [ -e "/proc/device-tree/model" ]; then
-      # Read the model information from /proc/device-tree/model and remove null bytes
-      model=$(tr -d '\0' < /proc/device-tree/model)
-      # Check if the model information contains "Jetson Nano Orion"
-      echo ""
-      if [[ $model == *"Orin Nano"* ]]; then
-          echo "Detecting a Jetson Nano Orin."
-	  # Use always "-j 4"
-          NO_JOB=4
-          ARCH=8.7
-          PTX="sm_87"
-      elif [[ $model == *"Jetson Nano"* ]]; then
-          echo "Detecting a regular Jetson Nano."
-          ARCH=5.3
-          PTX="sm_53"
-	  # Use "-j 4" only swap space is larger than 5.5GB
-	  FREE_MEM="$(free -m | awk '/^Swap/ {print $2}')"
-	  if [[ "FREE_MEM" -gt "5500" ]]; then
-	    NO_JOB=4
-	  else
-	    echo "Due to limited swap, make only uses 1 core"
-	    NO_JOB=1
-	  fi
-      else
-          echo "Unable to determine the Jetson Nano model."
-          exit 1
-      fi
-      echo ""
-  else
-      echo "Error: /proc/device-tree/model not found. Are you sure this is a Jetson Nano?"
-      exit 1
-  fi
+# install_opencv () {
+#   # Check if the file /proc/device-tree/model exists
+#   if [ -e "/proc/device-tree/model" ]; then
+#       # Read the model information from /proc/device-tree/model and remove null bytes
+#       model=$(tr -d '\0' < /proc/device-tree/model)
+#       # Check if the model information contains "Jetson Nano Orion"
+#       echo ""
+#       if [[ $model == *"Orin Nano"* ]]; then
+#           echo "Detecting a Jetson Nano Orin."
+# 	  # Use always "-j 4"
+#           NO_JOB=4
+#           ARCH=8.7
+#           PTX="sm_87"
+#       elif [[ $model == *"Jetson Nano"* ]]; then
+#           echo "Detecting a regular Jetson Nano."
+#           ARCH=5.3
+#           PTX="sm_53"
+# 	  # Use "-j 4" only swap space is larger than 5.5GB
+# 	  FREE_MEM="$(free -m | awk '/^Swap/ {print $2}')"
+# 	  if [[ "FREE_MEM" -gt "5500" ]]; then
+# 	    NO_JOB=4
+# 	  else
+# 	    echo "Due to limited swap, make only uses 1 core"
+# 	    NO_JOB=1
+# 	  fi
+#       else
+#           echo "Unable to determine the Jetson Nano model."
+#           exit 1
+#       fi
+#       echo ""
+#   else
+#       echo "Error: /proc/device-tree/model not found. Are you sure this is a Jetson Nano?"
+#       exit 1
+#   fi
   
   echo "Installing OpenCV 4.8.0 on your Nano"
   echo "It will take 3.5 hours !"
@@ -186,8 +186,8 @@ install_opencv () {
   -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
   -D EIGEN_INCLUDE_PATH=/usr/include/eigen3 \
   -D WITH_OPENCL=OFF \
-  -D CUDA_ARCH_BIN=${ARCH} \
-  -D CUDA_ARCH_PTX=${PTX} \
+  -D CUDA_ARCH_BIN=5.3 \
+  -D CUDA_ARCH_PTX="sm_53" \
   -D WITH_CUDA=ON \
   -D WITH_CUDNN=ON \
   -D WITH_CUBLAS=ON \
@@ -195,7 +195,7 @@ install_opencv () {
   -D CUDA_FAST_MATH=ON \
   -D OPENCV_DNN_CUDA=ON \
   -D ENABLE_NEON=ON \
-  -D WITH_QT=OFF \
+  -D WITH_QT=ON \
   -D WITH_OPENMP=ON \
   -D BUILD_TIFF=ON \
   -D WITH_FFMPEG=ON \
@@ -214,7 +214,7 @@ install_opencv () {
   -D OPENCV_GENERATE_PKGCONFIG=ON \
   -D BUILD_EXAMPLES=ON ..
  
-  make -j ${NO_JOB} 
+  make -j4
   
   directory="/usr/include/opencv4/opencv2"
   if [ -d "$directory" ]; then
