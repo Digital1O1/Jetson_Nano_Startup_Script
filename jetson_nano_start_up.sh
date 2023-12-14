@@ -253,8 +253,8 @@ else
     install_opencv
 fi
 
-
-
+sudo /etc/init.d/dphys-swapfile stop
+sudo apt-get remove --purge dphys-swapfile
 sudo reboot now
 
 
