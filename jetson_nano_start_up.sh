@@ -210,7 +210,12 @@ set -e
   -D OPENCV_ENABLE_NONFREE=ON \
   -D INSTALL_C_EXAMPLES=ON \
   -D INSTALL_PYTHON_EXAMPLES=ON \
-  -D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages \
+  -D PYTHON_EXECUTABLE=$(which python3) \
+  -D PYTHON_INCLUDE_DIR=$(python3 -c "import sysconfig; print(sysconfig.get_paths()['include'])") \
+  -D OPENCV_PYTHON3_INSTALL_PATH=/usr/lib/python3/dist-packages \
+  -D PYTHON_LIBRARY=lib/aarch64-linux-gnu/libpython3.8.so.1.0 \
+  -D PYTHON3_PACKAGES_PATH=$(python3 -m site --user-site) \
+  -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
   -D OPENCV_GENERATE_PKGCONFIG=ON \
   -D BUILD_EXAMPLES=ON ..
  
@@ -231,7 +236,7 @@ set -e
   
   echo "Congratulations!"
   echo "You've successfully installed OpenCV 4.8.0 on your Nano"
-}
+
 
 cd ~
 
