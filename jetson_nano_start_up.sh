@@ -221,11 +221,11 @@ set -e
  
   make -j4
   
-  directory="/usr/include/opencv4/opencv2"
-  if [ -d "$directory" ]; then
-    # Directory exists, so delete it
-    sudo rm -rf "$directory"
-  fi
+  # directory="/usr/include/opencv4/opencv2"
+  # if [ -d "$directory" ]; then
+  #   # Directory exists, so delete it
+  #   sudo rm -rf "$directory"
+  # fi
   
   sudo make install
   sudo ldconfig
@@ -235,7 +235,7 @@ set -e
   sudo apt-get update
   
   echo "Congratulations!"
-  echo "You've successfully installed OpenCV 4.8.0 on your Nano"
+  echo "You've successfully installed OpenCV 4.9.0 on your Nano"
 
 
 cd ~
