@@ -17,6 +17,11 @@ python3 install.py --all
 echo "------------------- [ INSTALLING NANO ] -------------------"
 sudo apt install -y nano
 
+echo "------------------- [ INSTALLING XORG for X11 FORWARDING ] -------------------"
+sudo apt install xorg
+startx
+echo 'export DISPLAY=localhost:10.0' >> ~/.zshrc && source ~/.zshrc
+
 echo "------------------- [ INSTALLING JETSON STATS ] -------------------"
 
 sudo apt install -y python3-pip
@@ -238,28 +243,78 @@ set -e
   echo "You've successfully installed OpenCV 4.9.0 on your Nano"
 
 
-cd ~
+# echo "------------------- [ INSTALLING ZSH AND PLUGINS/THEMES ] -------------------"
+#!/bin/bash
 
-if [ -d ~/opencv/build ]; then
-  echo " "
-  echo "You have a directory ~/opencv/build on your disk."
-  echo "Continuing the installation will replace this folder."
-  echo " "
+# Install Zsh
+echo "Installing Zsh..."
+sudo apt-get update && sudo apt-get install -y zsh
+
+# Install Oh My Zsh
+echo "Installing Oh My Zsh..."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Clone Powerlevel10k theme
+echo "Cloning Powerlevel10k theme..."
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+
+# Set Zsh theme to Powerlevel10k
+sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc
+
+# Install recommended plugins
+echo "Installing recommended plugins..."
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+# Install additional plugins
+echo "Installing additional plugins..."
+git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
+git clone https://github.com/wting/autojump.git
+cd autojump
+./install.py
+cd ..
+git clone https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+
+# Update .zshrc to include plugins
+echo "Updating .zshrc file..."
+echo "plugins=(" >> ~/.zshrc
+echo "  git" >> ~/.zshrc
+echo "  zsh-autosuggestions" >> ~/.zshrc
+echo "  zsh-syntax-highlighting" >> ~/.zshrc
+echo "  zsh-completions" >> ~/.zshrc
+echo "  autojump" >> ~/.zshrc
+echo "  docker" >> ~/.zshrc
+echo ")" >> ~/.zshrc
+
+echo "Zsh, Powerlevel10k, and recommended plugins installed successfully."
+echo "Please restart your terminal to apply the changes."
+
+
+
+# cd ~
+
+# if [ -d ~/opencv/build ]; then
+#   echo " "
+#   echo "You have a directory ~/opencv/build on your disk."
+#   echo "Continuing the installation will replace this folder."
+#   echo " "
   
-  printf "Do you wish to continue (Y/n)?"
-  read answer
+#   printf "Do you wish to continue (Y/n)?"
+#   read answer
 
-  if [ "$answer" != "${answer#[Nn]}" ] ;then 
-      echo "Leaving without installing OpenCV"
-  else
-      install_opencv
-  fi
-else
-    install_opencv
-fi
+#   if [ "$answer" != "${answer#[Nn]}" ] ;then 
+#       echo "Leaving without installing OpenCV"
+#   else
+#       install_opencv
+#   fi
+# else
+#     install_opencv
+# fi
 
-sudo /etc/init.d/dphys-swapfile stop
-sudo apt-get remove --purge dphys-swapfile
+# sudo /etc/init.d/dphys-swapfile stop
+# sudo apt-get remove --purge dphys-swapfile
 sudo reboot now
 
 
