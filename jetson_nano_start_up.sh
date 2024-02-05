@@ -100,43 +100,6 @@ echo "gsettings set org.gnome.Vino prompt-enabled false"
 
 echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
 
-#!/bin/bash
-set -e
-# install_opencv () {
-#   # Check if the file /proc/device-tree/model exists
-#   if [ -e "/proc/device-tree/model" ]; then
-#       # Read the model information from /proc/device-tree/model and remove null bytes
-#       model=$(tr -d '\0' < /proc/device-tree/model)
-#       # Check if the model information contains "Jetson Nano Orion"
-#       echo ""
-#       if [[ $model == *"Orin Nano"* ]]; then
-#           echo "Detecting a Jetson Nano Orin."
-# 	  # Use always "-j 4"
-#           NO_JOB=4
-#           ARCH=8.7
-#           PTX="sm_87"
-#       elif [[ $model == *"Jetson Nano"* ]]; then
-#           echo "Detecting a regular Jetson Nano."
-#           ARCH=5.3
-#           PTX="sm_53"
-# 	  # Use "-j 4" only swap space is larger than 5.5GB
-# 	  FREE_MEM="$(free -m | awk '/^Swap/ {print $2}')"
-# 	  if [[ "FREE_MEM" -gt "5500" ]]; then
-# 	    NO_JOB=4
-# 	  else
-# 	    echo "Due to limited swap, make only uses 1 core"
-# 	    NO_JOB=1
-# 	  fi
-#       else
-#           echo "Unable to determine the Jetson Nano model."
-#           exit 1
-#       fi
-#       echo ""
-#   else
-#       echo "Error: /proc/device-tree/model not found. Are you sure this is a Jetson Nano?"
-#       exit 1
-#   fi
-  
   echo "Installing OpenCV 4.8.0 on your Nano"
   echo "It will take 3.5 hours !"
   
@@ -293,28 +256,7 @@ echo "Please restart your terminal to apply the changes."
 
 
 
-# cd ~
 
-# if [ -d ~/opencv/build ]; then
-#   echo " "
-#   echo "You have a directory ~/opencv/build on your disk."
-#   echo "Continuing the installation will replace this folder."
-#   echo " "
-  
-#   printf "Do you wish to continue (Y/n)?"
-#   read answer
-
-#   if [ "$answer" != "${answer#[Nn]}" ] ;then 
-#       echo "Leaving without installing OpenCV"
-#   else
-#       install_opencv
-#   fi
-# else
-#     install_opencv
-# fi
-
-# sudo /etc/init.d/dphys-swapfile stop
-# sudo apt-get remove --purge dphys-swapfile
 sudo reboot now
 
 
