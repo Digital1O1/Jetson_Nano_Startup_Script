@@ -189,11 +189,11 @@ echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
  
   make -j4
   
-  # directory="/usr/include/opencv4/opencv2"
-  # if [ -d "$directory" ]; then
-  #   # Directory exists, so delete it
-  #   sudo rm -rf "$directory"
-  # fi
+  directory="/usr/include/opencv4/opencv2"
+  if [ -d "$directory" ]; then
+    # Directory exists, so delete it
+    sudo rm -rf "$directory"
+  fi
   
   sudo make install
   sudo ldconfig
