@@ -17,6 +17,10 @@ python3 install.py --all
 echo "------------------- [ INSTALLING NANO ] -------------------"
 sudo apt install -y nano
 
+echo "------------------- [ INSTALLING GPARTED ] -------------------"
+
+sudo apt install -y gparted
+
 echo "------------------- [ INSTALLING XORG for X11 FORWARDING ] -------------------"
 sudo apt install xorg
 startx
