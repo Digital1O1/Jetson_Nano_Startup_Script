@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 project(OpenCV_CUDA_Test)
 
+# Windows path, comment out if using Linux
+# set(OpenCV_DIR "E:/Coding Folder/OpenCV Source Folder/build/install/x64/vc16/lib")
+
 # Find OpenCV package
 find_package(OpenCV REQUIRED)
 
