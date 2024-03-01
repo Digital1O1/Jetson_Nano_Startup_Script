@@ -51,43 +51,51 @@ cd ~/opencv
 mkdir build
 cd build
 
-# run cmake
+# Define Python executable and library variables
+set(PYTHON_EXECUTABLE_PATH "$ENV{VIRTUAL_ENV}/bin/python")
+set(PYTHON_LIBRARY_PATH "$ENV{VIRTUAL_ENV}/lib/libpython3.8.so.1.0")
+set(PYTHON_INCLUDE_PATH "$ENV{VIRTUAL_ENV}/include/python3.8")
+
+# Run cmake with dynamic Python options
+# THIS NEEDS TO BE TESTED
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
--D CMAKE_INSTALL_PREFIX=$VIRTUAL_ENV \
--D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
--D EIGEN_INCLUDE_PATH=/usr/include/eigen3 \
--D WITH_OPENCL=OFF \
--D WITH_CUDA=ON \
--D CUDA_ARCH_BIN=5.3 \
--D CUDA_ARCH_PTX="" \
--D WITH_CUDNN=ON \
--D WITH_CUBLAS=ON \
--D ENABLE_FAST_MATH=ON \
--D CUDA_FAST_MATH=ON \
--D OPENCV_DNN_CUDA=ON \
--D ENABLE_NEON=ON \
--D WITH_QT=ON \
--D WITH_OPENMP=ON \
--D BUILD_TIFF=ON \
--D WITH_FFMPEG=ON \
--D WITH_GSTREAMER=ON \
--D WITH_TBB=ON \
--D BUILD_TBB=ON \
--D BUILD_opencv_python3=ON \
--D BUILD_TESTS=OFF \
--D WITH_EIGEN=ON \
--D WITH_V4L=ON \
--D WITH_LIBV4L=ON \
--D OPENCV_ENABLE_NONFREE=ON \
--D INSTALL_C_EXAMPLES=OFF \
--D INSTALL_PYTHON_EXAMPLES=OFF \
--D PYTHON_EXECUTABLE=$(which python3) \
--D PYTHON_INCLUDE_DIR=$(python3 -c "import sysconfig; print(sysconfig.get_paths()['include'])") \
--D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
--D PYTHON3_PACKAGES_PATH=$(python3 -m site --user-site) \
--D OPENCV_GENERATE_PKGCONFIG=ON \
--D WITH_ONNX=ON \
--D BUILD_EXAMPLES=OFF ..
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+  -D EIGEN_INCLUDE_PATH=/usr/include/eigen3 \
+  -D WITH_OPENCL=OFF \
+  -D CUDA_ARCH_BIN=5.3 \
+  -D CUDA_ARCH_PTX="sm_53" \
+  -D WITH_CUDA=ON \
+  -D WITH_CUDNN=ON \
+  -D WITH_CUBLAS=ON \
+  -D ENABLE_FAST_MATH=ON \
+  -D CUDA_FAST_MATH=ON \
+  -D OPENCV_DNN_CUDA=ON \
+  -D ENABLE_NEON=ON \
+  -D WITH_QT=ON \
+  -D WITH_OPENMP=ON \
+  -D BUILD_TIFF=ON \
+  -D WITH_FFMPEG=ON \
+  -D WITH_GSTREAMER=ON \
+  -D WITH_TBB=ON \
+  -D BUILD_TBB=ON \
+  -D BUILD_TESTS=OFF \
+  -D WITH_EIGEN=ON \
+  -D WITH_V4L=ON \
+  -D WITH_LIBV4L=ON \
+  -D WITH_PROTOBUF=ON \
+  -D OPENCV_ENABLE_NONFREE=ON \
+  -D INSTALL_C_EXAMPLES=ON \
+  -D INSTALL_PYTHON_EXAMPLES=ON \
+  -D PYTHON_EXECUTABLE=${PYTHON_EXECUTABLE_PATH} \
+  -D PYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_PATH} \
+  -D OPENCV_PYTHON3_INSTALL_PATH=/usr/lib/python3/dist-packages \
+  -D PYTHON_LIBRARY=${PYTHON_LIBRARY_PATH} \
+  -D PYTHON3_PACKAGES_PATH=${PYTHON_EXECUTABLE_PATH} \
+  -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
+  -D OPENCV_GENERATE_PKGCONFIG=ON \
+  -D BUILD_EXAMPLES=ON ..
+
 # run make
 make -j 4
 
