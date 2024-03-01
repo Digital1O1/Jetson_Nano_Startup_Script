@@ -56,7 +56,7 @@ sudo apt-get install -y tightvncserver
 tightvncserver
 
 # Stop TightVNC server
-tightvncserver -kill :1
+# tightvncserver -kill :1
 
 # Configure TightVNC server to start on boot
 echo "#!/bin/sh
