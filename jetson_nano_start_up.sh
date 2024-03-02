@@ -239,33 +239,33 @@ sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc
 
 
 echo "RESTART TERMINAL THEN INSTALL THE PLUGINS OR THEY WONT WORK"
-git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+# git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-# Install additional plugins
-echo "Installing additional plugins..."
-git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
-git clone https://github.com/wting/autojump.git
-cd autojump
-./install.py
-cd ..
-git clone https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+# # Install additional plugins
+# echo "Installing additional plugins..."
+# git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
+# git clone https://github.com/wting/autojump.git
+# cd autojump
+# ./install.py
+# cd ..
+# git clone https://github.com/junegunn/fzf.git ~/.fzf
+# ~/.fzf/install
+# git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 
-# Update .zshrc to include plugins
-echo "Updating .zshrc file..."
-echo "plugins=(" >> ~/.zshrc
-echo "  git" >> ~/.zshrc
-echo "  zsh-autosuggestions" >> ~/.zshrc
-echo "  zsh-syntax-highlighting" >> ~/.zshrc
-echo "  zsh-completions" >> ~/.zshrc
-echo "  autojump" >> ~/.zshrc
-echo "  docker" >> ~/.zshrc
-echo ")" >> ~/.zshrc
+# # Update .zshrc to include plugins
+# echo "Updating .zshrc file..."
+# echo "plugins=(" >> ~/.zshrc
+# echo "  git" >> ~/.zshrc
+# echo "  zsh-autosuggestions" >> ~/.zshrc
+# echo "  zsh-syntax-highlighting" >> ~/.zshrc
+# echo "  zsh-completions" >> ~/.zshrc
+# echo "  autojump" >> ~/.zshrc
+# echo "  docker" >> ~/.zshrc
+# echo ")" >> ~/.zshrc
 
-echo "Zsh, Powerlevel10k, and recommended plugins installed successfully."
-echo "Please restart your terminal to apply the changes."
+# echo "Zsh, Powerlevel10k, and recommended plugins installed successfully."
+# echo "Please restart your terminal to apply the changes."
 
 sudo reboot now
 
