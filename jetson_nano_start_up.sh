@@ -2,7 +2,7 @@
 echo "Starting initial setup for Jetson Nano"
 
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
-sudo apt-get -y update  && sudo apt-get -y upgrade 
+sudo apt-get -y update && sudo apt-get -y upgrade 
 
 # echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
@@ -255,9 +255,5 @@ echo ")" >> ~/.zshrc
 echo "Zsh, Powerlevel10k, and recommended plugins installed successfully."
 echo "Please restart your terminal to apply the changes."
 
-
-
-
 sudo reboot now
-
 
