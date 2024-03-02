@@ -1,11 +1,20 @@
 #! /bin/bash
 echo "Starting initial setup for Jetson Nano"
 
+echo "------------------- [ INSTALLING GPARTED ] -------------------"
+
+sudo apt install -y gparted
+
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
 sudo apt-get -y update && sudo apt-get -y upgrade 
 
-# echo "------------------- [ INSTALLING virtualenv ] -------------------"
+# echo "------------------- [ INSTALLING VIRTUALENV ] -------------------"
 pip install virtualenv
+
+# echo "------------------- [ UPDATING PIP ] -------------------"
+
+pip install --upgrade pip
+
 
 # echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
@@ -19,10 +28,6 @@ python3 install.py --all
 
 echo "------------------- [ INSTALLING NANO ] -------------------"
 sudo apt install -y nano
-
-echo "------------------- [ INSTALLING GPARTED ] -------------------"
-
-sudo apt install -y gparted
 
 echo "------------------- [ INSTALLING XORG for X11 FORWARDING ] -------------------"
 sudo apt install xorg
@@ -213,6 +218,8 @@ echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
 # echo "------------------- [ INSTALLING ZSH AND PLUGINS/THEMES ] -------------------"
 #!/bin/bash
 
+sudo apt install curl
+
 # Install Zsh
 echo "Installing Zsh..."
 sudo apt-get update && sudo apt-get install -y zsh
@@ -229,7 +236,9 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/the
 sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc
 
 # Install recommended plugins
-echo "Installing recommended plugins..."
+
+
+echo "RESTART TERMINAL THEN INSTALL THE PLUGINS OR THEY WONT WORK"
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
