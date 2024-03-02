@@ -4,6 +4,9 @@ echo "Starting initial setup for Jetson Nano"
 echo "------------------- [ UPDATING JETSON NANO ] -------------------"
 sudo apt-get -y update && sudo apt-get -y upgrade 
 
+# echo "------------------- [ INSTALLING virtualenv ] -------------------"
+pip install virtualenv
+
 # echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
 sudo apt install -y gcc-8 g++-8
