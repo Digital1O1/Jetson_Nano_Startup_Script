@@ -1,3 +1,20 @@
+# UNCOMMENT THIS SECTION IF YOU WANT TO REINSTALL ZSH
+
+# Remove existing installations
+# echo "Removing existing installations..."
+# sudo apt-get remove zsh -y
+# rm -rf ~/.oh-my-zsh
+# rm -rf ~/.p10k.zsh
+# rm -rf $ZSH_CUSTOM/themes/powerlevel10k
+# rm -rf $ZSH_CUSTOM/plugins/zsh-autosuggestions
+# rm -rf $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+# rm -rf $ZSH_CUSTOM/plugins/zsh-completions
+# rm -rf $ZSH_CUSTOM/plugins/autojump
+# rm -rf ~/.fzf
+
+# echo "Installing Zsh..."
+# sudo apt-get update && sudo apt-get install -y zsh
+
 # Clone Powerlevel10k theme
 echo "Cloning Powerlevel10k theme..."
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
