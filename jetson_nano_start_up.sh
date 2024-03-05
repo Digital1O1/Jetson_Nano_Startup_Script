@@ -14,7 +14,7 @@ pip install virtualenv
 # echo "------------------- [ UPDATING PIP ] -------------------"
 
 pip install --upgrade pip
-
+sudo apt install -y tilix
 
 # echo "------------------- [ INSTALLING GCC V8 FOR OPENCV ] -------------------"
 
