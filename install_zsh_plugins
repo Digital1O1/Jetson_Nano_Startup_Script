@@ -1,19 +1,14 @@
-# UNCOMMENT THIS SECTION IF YOU WANT TO REINSTALL ZSH
+#!/bin/bash
 
-# Remove existing installations
-# echo "Removing existing installations..."
-# sudo apt-get remove zsh -y
-# rm -rf ~/.oh-my-zsh
-# rm -rf ~/.p10k.zsh
-# rm -rf $ZSH_CUSTOM/themes/powerlevel10k
-# rm -rf $ZSH_CUSTOM/plugins/zsh-autosuggestions
-# rm -rf $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-# rm -rf $ZSH_CUSTOM/plugins/zsh-completions
-# rm -rf $ZSH_CUSTOM/plugins/autojump
-# rm -rf ~/.fzf
+# Install necessary dependencies
+sudo apt update
+sudo apt install -y zsh git
 
-# echo "Installing Zsh..."
-# sudo apt-get update && sudo apt-get install -y zsh
+# Set Zsh as default shell
+chsh -s $(which zsh)
+
+# Install Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Clone Powerlevel10k theme
 echo "Cloning Powerlevel10k theme..."
@@ -41,5 +36,5 @@ git clone https://github.com/junegunn/fzf.git ~/.fzf
 echo "Updating .zshrc file..."
 sed -i 's/plugins=(.*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions autojump docker)/' ~/.zshrc
 
-echo "Zsh, Powerlevel10k, and plugins reinstalled successfully."
+echo "Zsh, Powerlevel10k, and plugins installed successfully."
 echo "Please restart your terminal to apply the changes."
