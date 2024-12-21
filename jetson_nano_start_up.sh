@@ -30,9 +30,9 @@ echo "------------------- [ INSTALLING NANO ] -------------------"
 sudo apt install -y nano
 
 echo "------------------- [ INSTALLING XORG for X11 FORWARDING ] -------------------"
-sudo apt install xorg
-startx
-echo 'export DISPLAY=localhost:10.0' >> ~/.zshrc && source ~/.zshrc
+# sudo apt install xorg
+# startx
+# echo 'export DISPLAY=localhost:10.0' >> ~/.zshrc && source ~/.zshrc
 
 echo "------------------- [ INSTALLING JETSON STATS ] -------------------"
 
@@ -48,68 +48,68 @@ cd vim-master/src
 make -j 4
 sudo make install
 
-echo "------------------- [ INSTALLING XRDP / XFCE4 ] -------------------"
-# Reference link : https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/
+# echo "------------------- [ INSTALLING XRDP / XFCE4 ] -------------------"
+# # Reference link : https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/
 
-# XRDP / XFCE4
-sudo apt install -y xrdp
-sudo apt install -y python3-pip
-sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
-sudo apt install -y curl
-echo "------------------- [ INSTALLING TIGHTVNC ] -------------------"
-sudo apt-get install -y xfce4 xfce4-goodies
-sudo apt-get install -y tightvncserver
+# # XRDP / XFCE4
+# sudo apt install -y xrdp
+# sudo apt install -y python3-pip
+# sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
+# sudo apt install -y curl
+# echo "------------------- [ INSTALLING TIGHTVNC ] -------------------"
+# sudo apt-get install -y xfce4 xfce4-goodies
+# sudo apt-get install -y tightvncserver
 
-# Start TightVNC server to set up initial configuration
-tightvncserver
+# # Start TightVNC server to set up initial configuration
+# tightvncserver
 
-# Configure TightVNC server to start on boot
-echo "#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          tightvncserver
-# Required-Start:    $local_fs $remote_fs $network
-# Required-Stop:     $local_fs $remote_fs $network
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Start TightVNC server at boot time
-# Description:       Start TightVNC server at boot time.
-### END INIT INFO
+# # Configure TightVNC server to start on boot
+# echo "#!/bin/sh
+# ### BEGIN INIT INFO
+# # Provides:          tightvncserver
+# # Required-Start:    $local_fs $remote_fs $network
+# # Required-Stop:     $local_fs $remote_fs $network
+# # Default-Start:     2 3 4 5
+# # Default-Stop:      0 1 6
+# # Short-Description: Start TightVNC server at boot time
+# # Description:       Start TightVNC server at boot time.
+# ### END INIT INFO
 
-# /etc/init.d/tightvncserver
-tightvncserver -geometry 1920x1080 -depth 24 :1
-" | sudo tee -a /etc/init.d/tightvncserver
+# # /etc/init.d/tightvncserver
+# tightvncserver -geometry 1920x1080 -depth 24 :1
+# " | sudo tee -a /etc/init.d/tightvncserver
 
-# Set executable permissions for the init script
-sudo chmod +x /etc/init.d/tightvncserver
+# # Set executable permissions for the init script
+# sudo chmod +x /etc/init.d/tightvncserver
 
-# Register the init script to run on boot
-sudo update-rc.d tightvncserver defaults
+# # Register the init script to run on boot
+# sudo update-rc.d tightvncserver defaults
 
-# Start TightVNC server
-sudo /etc/init.d/tightvncserver start
+# # Start TightVNC server
+# sudo /etc/init.d/tightvncserver start
 
-echo "TightVNC server installed and configured. You can now connect to your Jetson Nano using a VNC viewer on the IP address followed by :1 (e.g., 192.168.1.100:1)"
+# echo "TightVNC server installed and configured. You can now connect to your Jetson Nano using a VNC viewer on the IP address followed by :1 (e.g., 192.168.1.100:1)"
 
-echo "------------------- [ ENABLE VNC/REMOTE DESKTOP ] -------------------"
-echo "Reference link: https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/"
-echo "Use the following command: sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml"
-echo "Add this after the first 'entry'"
-echo "<key name='enabled' type='b'>
-   <summary>Enable remote access to the desktop</summary>
-   <description>
-   If true, allows remote access to the desktop via the RFB
-   protocol. Users on remote machines may then connect to the
-   desktop using a VNC viewer.
-   </description>
-   <default>false</default>
-</key>"
-echo "Then: sudo glib-compile-schemas /usr/share/glib-2.0/schemas"
-echo "gsettings set org.gnome.Vino require-encryption false"
-echo "gsettings set org.gnome.Vino prompt-enabled false"
+# echo "------------------- [ ENABLE VNC/REMOTE DESKTOP ] -------------------"
+# echo "Reference link: https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/"
+# echo "Use the following command: sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml"
+# echo "Add this after the first 'entry'"
+# echo "<key name='enabled' type='b'>
+#    <summary>Enable remote access to the desktop</summary>
+#    <description>
+#    If true, allows remote access to the desktop via the RFB
+#    protocol. Users on remote machines may then connect to the
+#    desktop using a VNC viewer.
+#    </description>
+#    <default>false</default>
+# </key>"
+# echo "Then: sudo glib-compile-schemas /usr/share/glib-2.0/schemas"
+# echo "gsettings set org.gnome.Vino require-encryption false"
+# echo "gsettings set org.gnome.Vino prompt-enabled false"
 
 echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
 
-  echo "Installing OpenCV 4.8.0 on your Nano"
+  echo "Installing The Latest Version Of OpenCV with CUDA support!"
   echo "It will take 3.5 hours !"
   
   # reveal the CUDA location
@@ -196,7 +196,7 @@ echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
   -D OPENCV_GENERATE_PKGCONFIG=ON \
   -D BUILD_EXAMPLES=ON ..
  
-  make -j4
+  make -j$(nproc)
   
   directory="/usr/include/opencv4/opencv2"
   if [ -d "$directory" ]; then
@@ -220,16 +220,16 @@ echo "------------------- [ INSTALLING OPENCV WITH CUDA ] -------------------"
 
 sudo apt install curl
 
-# Install Zsh
-echo "Installing Zsh..."
-sudo apt-get update && sudo apt-get install -y zsh
+# # Install Zsh
+# echo "Installing Zsh..."
+# sudo apt-get update && sudo apt-get install -y zsh
 
-# Install Oh My Zsh
-echo "Installing Oh My Zsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# # Install Oh My Zsh
+# echo "Installing Oh My Zsh..."
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Clone Powerlevel10k theme
-echo "Cloning Powerlevel10k theme..."
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+# # Clone Powerlevel10k theme
+# echo "Cloning Powerlevel10k theme..."
+# git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
 sudo reboot now
