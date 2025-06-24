@@ -87,4 +87,5 @@ sudo ldconfig
 make clean
 
 echo "OpenCV installation complete!"
-python3 -c "import cv2; print(cv2.__version__); print(cv2.getBuildInformation())"
+python3 -c "import cv2; print('CUDA available:' if cv2.cuda.getCudaEnabledDeviceCount() > 0 else 'No CUDA support')"
+# python3 -c "import cv2; print(cv2.__version__); print(cv2.getBuildInformation())"
